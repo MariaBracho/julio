@@ -1,9 +1,17 @@
+"use client";
+
+import { useObserverSection } from "@/hooks/useObserverSection";
 import Card from "./Card";
 import Tap from "./Tap";
 
 export default function ProjectGallerySection() {
+  const observe = useObserverSection();
   return (
-    <section className="w-full flex flex-col items-center min-h-[962px]">
+    <div
+      {...observe}
+      id="projects"
+      className="w-full flex flex-col items-center min-h-[962px]"
+    >
       <div className="flex">
         <Tap name="UX/UI Design" icon="/icons/circles-icons.svg" />
         <Tap name="Diseño Gráfico" icon="/icons/color-swatch-icon.svg" />
@@ -17,7 +25,6 @@ export default function ProjectGallerySection() {
         <Card image="/images/Img.png" title="Hutrit" category="UX/UI Design" />
         <Card image="/images/Img.png" title="Hutrit" category="UX/UI Design" />
       </div>
-      <div id="honorable-mention" />
-    </section>
+    </div>
   );
 }

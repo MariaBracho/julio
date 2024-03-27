@@ -11,7 +11,6 @@ export default function BrandSection() {
           width={48}
           height={48}
         />
-        <div id="projects" className="absolute top-1/2" />
         <Image
           src="/images/julio.png"
           alt="julio"

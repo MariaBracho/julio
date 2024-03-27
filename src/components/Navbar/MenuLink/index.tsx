@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import useHash from "@/hooks/useHash";
+import { useActiveSectionStore } from "@/stores/activeSectionStore";
 
 export default function MenuLink({
   href,
@@ -10,12 +9,9 @@ export default function MenuLink({
   href: string;
   children: React.ReactNode;
 }>) {
-  const [isActive, setIsActive] = useState(false);
-  const { hash } = useHash();
+  const { activeSection } = useActiveSectionStore();
 
-  useEffect(() => {
-    setIsActive(hash === href);
-  }, [hash, href]);
+  const isActive = href.replace("#", "") === activeSection;
 
   return (
     <li

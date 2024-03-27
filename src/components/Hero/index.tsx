@@ -1,9 +1,19 @@
+"use client";
+
 import Image from "next/image";
-import HonorableMentionIcon from "../HonorableMentionIcon";
+
+import { useObserverSection } from "@/hooks/useObserverSection";
+import HonorableMentionIcon from "@/components/HonorableMentionIcon";
 
 export default function Hero() {
+  const observe = useObserverSection();
+
   return (
-    <section className="h-screen w-full grid place-content-center relative">
+    <section
+      {...observe}
+      id="hero"
+      className="h-screen w-full grid place-content-center relative"
+    >
       <div className="relative z-40">
         <div className="flex flex-col gap-7 items-center">
           <p className="title w-[761px] leading-none">

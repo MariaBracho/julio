@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+
+import { useObserverSection } from "@/hooks/useObserverSection";
 
 import { SKILLS } from "@/constants/skills";
 
@@ -6,8 +10,14 @@ import Badge from "./Badge";
 import WorkExperienceCard from "./WorkExperienceCard";
 
 export default function AboutMeSection() {
+  const observe = useObserverSection();
+
   return (
-    <section className="flex flex-col min-h-[1158px] w-full items-center">
+    <section
+      {...observe}
+      id="about-me"
+      className="flex flex-col min-h-[1158px] w-full items-center"
+    >
       <div className="mb-16">
         <p className="title">Sobre mi</p>
         <p className="sub-title">

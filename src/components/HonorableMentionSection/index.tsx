@@ -1,10 +1,21 @@
+"use client";
+
 import Image from "next/image";
-import HonorableMentionIcon from "../HonorableMentionIcon";
-import Card from "../ProjectGallery/Card";
+
+import HonorableMentionIcon from "@/components/HonorableMentionIcon";
+import Card from "@/components/ProjectGallery/Card";
+
+import { useObserverSection } from "@/hooks/useObserverSection";
 
 export default function HonorableMentionSection() {
+  const observe = useObserverSection();
+
   return (
-    <section className="min-h-[627px] w-full">
+    <section
+      {...observe}
+      id="honorable-mention"
+      className="min-h-[627px] w-full"
+    >
       <HonorableMentionIcon />
       <div className="mb-12">
         <p className="title">Mención Honorifico🎖️</p>
@@ -54,7 +65,6 @@ export default function HonorableMentionSection() {
           </div>
         </div>
       </div>
-      <div id="about-me" />
     </section>
   );
 }

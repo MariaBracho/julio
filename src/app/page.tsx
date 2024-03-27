@@ -11,10 +11,7 @@ import Link from "next/link";
 
 export default function Page() {
   return (
-    <div
-      id="hero"
-      className="relative flex min-h-screen flex-col items-center bg-white px-6 py-3"
-    >
+    <div className="relative flex min-h-screen flex-col items-center bg-white px-6 py-3">
       <Navbar />
       <Hero />
       <div className="w-full max-w-[1170px]">
