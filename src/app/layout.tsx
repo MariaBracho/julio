@@ -16,6 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
+      <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
       <body className={montserrat.className}>{children}</body>
     </html>
   );

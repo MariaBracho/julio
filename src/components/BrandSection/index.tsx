@@ -12,7 +12,13 @@ export default function BrandSection() {
           height={48}
         />
         <div id="projects" className="absolute top-1/2" />
-        <Image src="/images/julio.png" alt="julio" width={870} height={532} />
+        <Image
+          src="/images/julio.png"
+          alt="julio"
+          width={870}
+          height={532}
+          priority
+        />
       </div>
       <div className="flex flex-col items-center gap-2">
         <p className="title">Proyectos Design</p>

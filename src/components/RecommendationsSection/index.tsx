@@ -16,9 +16,9 @@ const CustomRightArrow = ({
 }) => {
   return (
     <button
-      data-isRight={isRight}
+      data-isright={isRight}
       onClick={onClick}
-      className="z-50 absolute data-[isRight=false]:left-0 right-0 data-[isRight=false]:rotate-0  rotate-180"
+      className="z-50 absolute data-[isright=false]:left-0 right-0 data-[isright=false]:rotate-0  rotate-180"
     >
       <Image
         src="/icons/arrow-grey.svg"

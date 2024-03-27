@@ -37,6 +37,7 @@ export default function Hero() {
             className="scale-x-[-1]"
             src="/icons/spike-icon.svg"
             alt="spike"
+            priority
             width={29}
             height={56}
           />
