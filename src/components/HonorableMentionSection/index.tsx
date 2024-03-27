@@ -23,7 +23,7 @@ export default function HonorableMentionSection() {
           Conoce, mi trayectoria mis habilidades y mi creencias profesionales
         </p>
       </div>
-      <div className="h-[360px] bg-[#E7E7E7] relative overflow-hidden rounded-2xl">
+      <div className="h-[360px] bg-[#CBC7FF] relative overflow-hidden rounded-2xl">
         <Image
           src="/shapes/banner.svg"
           alt="shape"
@@ -31,10 +31,20 @@ export default function HonorableMentionSection() {
           height={360}
           className="absolute z-10"
         />
+
+        <Image
+          src="/images/gradient-texture.png"
+          alt="shape"
+          width={385}
+          height={360}
+          className="w-[385px] h-full absolute right-0  z-10"
+        />
+
         <div className="flex gap-20 items-center relative  px-[22px] w-full h-full z-40">
           <Card
-            image="/images/Img.png"
-            title="Hutrit"
+            icon="/images/aslan-logo.png"
+            image="/images/Img.jpg"
+            title="Aslan app"
             category="UX/UI Design"
           />
           <div className="max-w-[610px] w-full">

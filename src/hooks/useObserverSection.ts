@@ -8,7 +8,6 @@ export const useObserverSection = () => {
   const { ref } = useIntersectionObserver({
     threshold: 0.5,
     onChange: (isIntersecting, evt) => {
-      console.log({ isIntersecting, evt });
       isIntersecting && setActiveSection(evt.target.id);
     },
   });

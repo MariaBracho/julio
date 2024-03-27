@@ -70,7 +70,7 @@ export default function AboutMeSection() {
             </div>
           </div>
         </section>
-        <section className="bg-[#E7E7E7] w-full h-full px-8 py-10 flex flex-col items-center">
+        <section className="bg-[#E6E4FF] w-full h-full px-8 py-10 flex flex-col items-center">
           <div className="flex gap-2 items-center mb-10">
             <div className="rounded-[14px] bg-primary-cta/10 w-12 h-12 grid place-content-center">
               <Image
