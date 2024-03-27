@@ -1,0 +1,7 @@
+.title{
+   @apply font-extrabold text-5xl text-primary-text text-center
+}
+
+.sub-title{
+    @apply text-xl text-secondary-text text-center
+}

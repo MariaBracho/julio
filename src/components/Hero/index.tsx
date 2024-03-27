@@ -3,18 +3,20 @@ import HonorableMentionIcon from "../HonorableMentionIcon";
 
 export default function Hero() {
   return (
-    <main className="grid place-content-center ">
-      <div className="mt-[140px]">
-        <div className="text-center flex flex-col gap-[27px] items-center">
-          <p className="font-extrabold text-[52px] w-[761px] leading-none">
+    <section className="h-screen w-full grid place-content-center relative">
+      <div className="relative z-40">
+        <div className="flex flex-col gap-7 items-center">
+          <p className="title w-[761px] leading-none">
             ¡Hola! 👋 Soy Julio Quiñones, diseñador UX/UI
           </p>
-          <p>“La mejor manera de predecir el futuro es creándolo”</p>
-          <button className="bg-[#4A3AFF] rounded-full h-12 w-[208px] text-white">
+          <p className="sub-title">
+            “La mejor manera de predecir el futuro es creándolo”
+          </p>
+          <button className="bg-primary-cta rounded-full h-12 w-[208px] text-white text-sm">
             Agendar reunión
           </button>
         </div>
-        <div className="mt-[54px] mb-[4.5px]">
+        <div className="mt-14 mb-1">
           <HonorableMentionIcon />
         </div>
         <div className="flex justify-center">
@@ -25,7 +27,9 @@ export default function Hero() {
             height={56}
           />
           <div className="text-center">
-            <p className="font-extrabold">Mención Honorifica</p>
+            <p className="font-extrabold text-sm font-alegreya">
+              Mención Honorifica
+            </p>
             <p className="text-xs">Platzi y Torres Burriel estudio</p>
             <p className="text-xs font-extrabold">2022</p>
           </div>
@@ -38,6 +42,14 @@ export default function Hero() {
           />
         </div>
       </div>
-    </main>
+      <div className="absolute h-screen w-full">
+        <Image
+          src="/images/background-hero.png"
+          alt="background hero"
+          className="object-cover w-full h-full"
+          fill
+        />
+      </div>
+    </section>
   );
 }

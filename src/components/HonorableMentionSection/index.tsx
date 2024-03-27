@@ -4,17 +4,15 @@ import Card from "../ProjectGallery/Card";
 
 export default function HonorableMentionSection() {
   return (
-    <section className="min-h-[627px] w-[1170px]">
+    <section className="min-h-[627px] w-full">
       <HonorableMentionIcon />
-      <div className="text-center">
-        <p className="text-[#333333] font-extrabold text-[52px]">
-          Mención Honorifico🎖️
-        </p>
-        <p className="text-[#555A65] text-[20px]">
+      <div className="mb-12">
+        <p className="title">Mención Honorifico🎖️</p>
+        <p className="sub-title">
           Conoce, mi trayectoria mis habilidades y mi creencias profesionales
         </p>
       </div>
-      <div className="w-[1170px] h-[360px] bg-[#E7E7E7] relative overflow-hidden rounded-2xl">
+      <div className="h-[360px] bg-[#E7E7E7] relative overflow-hidden rounded-2xl">
         <Image
           src="/shapes/banner.svg"
           alt="shape"
@@ -43,7 +41,7 @@ export default function HonorableMentionSection() {
               usuario.
             </p>
             <div className="mt-5 flex gap-3">
-              <p className="text-[#2055E5] font-bold text-base">
+              <p className="text-primary-cta font-bold text-base">
                 Ver proyecto Aslan App
               </p>
               <Image
@@ -56,6 +54,7 @@ export default function HonorableMentionSection() {
           </div>
         </div>
       </div>
+      <div id="about-me" />
     </section>
   );
 }

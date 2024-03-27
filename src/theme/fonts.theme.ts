@@ -1,5 +1,17 @@
 import localFont from "next/font/local";
 
+export const alegreya = localFont({
+  variable: "--font-alegreya",
+  display: "swap",
+  src: [
+    {
+      path: "./../../public/fonts/Alegreya-ExtraBold.ttf",
+      weight: "800",
+      style: "normal",
+    },
+  ],
+});
+
 export const montserrat = localFont({
   variable: "--font-montserrat",
   display: "swap",
