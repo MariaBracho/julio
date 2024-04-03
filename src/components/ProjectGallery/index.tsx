@@ -1,12 +1,16 @@
 "use client";
 
 import { useMemo, useRef, useState } from "react";
+
 import { useObserverSection } from "@/hooks/useObserverSection";
-import Tap from "./Tap";
-import ListOfProjects from "./ListOfProjects";
+
 import useSupabaseBrowser from "@/utils/supabase-browser";
+
 import { useQuery } from "@supabase-cache-helpers/postgrest-react-query";
 import { getCategoriesQuery } from "@/queries/getCategoriesQuery";
+
+import Tap from "./Tap";
+import ListOfProjects from "./ListOfProjects";
 
 export default function ProjectGallerySection() {
   const ref = useRef(null);
@@ -41,18 +45,21 @@ export default function ProjectGallerySection() {
     >
       <div className="mb-11 w-full flex flex-col justify-center">
         <div className="flex w-full justify-center">
-          {categories &&
-            categories.map(({ name, id, icon }) => (
-              <Tap
-                key={id}
-                onClickTap={handleTabClick}
-                name={name}
-                icon={icon ?? ""}
-              />
-            ))}
+          <div className="w-[927px] flex">
+            {categories &&
+              categories.map(({ name, id, icon }) => (
+                <Tap
+                  key={id}
+                  isActivate={activeTab === name}
+                  onClickTap={handleTabClick}
+                  name={name}
+                  icon={icon ?? ""}
+                />
+              ))}
+          </div>
         </div>
         <div className="w-full h-[2px] bg-[#D9DBE9] flex justify-center">
-          <div className="w-[927px] relative">
+          <div className="w-[927px] relative ">
             {tapPositionGenerator && (
               <div
                 ref={ref}
@@ -63,7 +70,7 @@ export default function ProjectGallerySection() {
           </div>
         </div>
       </div>
-      <ListOfProjects />
+      <ListOfProjects categoryName={activeTab} />
     </div>
   );
 }

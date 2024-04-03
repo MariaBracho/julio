@@ -8,12 +8,14 @@ import { useQuery } from "@supabase-cache-helpers/postgrest-react-query";
 
 import Image from "next/image";
 
+import style from "./certificate.module.css";
+
 export default function ListOfCertificates() {
   const supabase = useSupabaseBrowser();
 
   const { data: certificates } = useQuery(getCertificatesQuery(supabase));
   return (
-    <div className="flex flex-wrap justify-between gap-y-2">
+    <div className={`${style.listOfCertificates} gap-3 justify-items-center`}>
       {certificates &&
         certificates.map(({ id, img }) => {
           return (
