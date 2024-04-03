@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import { montserrat } from "@/theme/fonts.theme";
 
+import { ReactQueryClientProvider } from "@/providers/ReactQueryClientProvider";
+
 import "./../theme/globals.css";
 
 export const metadata: Metadata = {
@@ -17,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <link rel="icon" type="image/x-icon" href="/icons/favicon.ico" />
-      <body className={montserrat.className}>{children}</body>
+      <ReactQueryClientProvider>
+        <body className={montserrat.className}>{children}</body>
+      </ReactQueryClientProvider>
     </html>
   );
 }

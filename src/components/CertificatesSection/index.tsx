@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ListOfCertificates from "./ListOfCertificates";
 
 export default function CertificatesSection() {
   return (
@@ -24,64 +25,7 @@ export default function CertificatesSection() {
           height={24}
         />
       </div>
-      <div className="flex flex-wrap justify-between gap-y-2">
-        <Image
-          src="/images/certicate-example.png"
-          className="rounded-lg object-cover"
-          alt="certicate"
-          width={281}
-          height={196}
-        />
-        <Image
-          src="/images/certicate-example.png"
-          className="rounded-lg"
-          alt="certicate"
-          width={281}
-          height={196}
-        />
-        <Image
-          src="/images/certicate-example.png"
-          className="rounded-lg"
-          alt="certicate"
-          width={281}
-          height={196}
-        />
-        <Image
-          src="/images/certicate-example.png"
-          className="rounded-lg"
-          alt="certicate"
-          width={281}
-          height={196}
-        />
-        <Image
-          src="/images/certicate-example.png"
-          className="rounded-lg"
-          alt="certicate"
-          width={281}
-          height={196}
-        />
-        <Image
-          src="/images/certicate-example.png"
-          className="rounded-lg"
-          alt="certicate"
-          width={281}
-          height={196}
-        />
-        <Image
-          src="/images/certicate-example.png"
-          className="rounded-lg"
-          alt="certicate"
-          width={281}
-          height={196}
-        />
-        <Image
-          src="/images/certicate-example.png"
-          className="rounded-lg"
-          alt="certicate"
-          width={281}
-          height={196}
-        />
-      </div>
+      <ListOfCertificates />
     </section>
   );
 }

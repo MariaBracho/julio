@@ -1,11 +1,38 @@
 "use client";
 
+import { useMemo, useRef, useState } from "react";
 import { useObserverSection } from "@/hooks/useObserverSection";
-import Card from "./Card";
 import Tap from "./Tap";
+import ListOfProjects from "./ListOfProjects";
+import useSupabaseBrowser from "@/utils/supabase-browser";
+import { useQuery } from "@supabase-cache-helpers/postgrest-react-query";
+import { getCategoriesQuery } from "@/queries/getCategoriesQuery";
 
 export default function ProjectGallerySection() {
+  const ref = useRef(null);
   const observe = useObserverSection();
+
+  const supabase = useSupabaseBrowser();
+
+  const { data: categories } = useQuery(getCategoriesQuery(supabase));
+
+  const firstCategory = categories?.[0].name ?? "";
+
+  const [activeTab, setActiveTab] = useState(firstCategory);
+
+  const handleTabClick = (category: string) => {
+    setActiveTab(category);
+  };
+
+  const tapPositionGenerator = useMemo(() => {
+    return categories
+      ? categories.reduce((acc: Record<string, string>, { name }, index) => {
+          acc[name] = `${index * 309.122}px`;
+          return acc;
+        }, {})
+      : null;
+  }, [categories]);
+
   return (
     <div
       {...observe}
@@ -14,24 +41,29 @@ export default function ProjectGallerySection() {
     >
       <div className="mb-11 w-full flex flex-col justify-center">
         <div className="flex w-full justify-center">
-          <Tap name="UX/UI Design" icon="/icons/circles-icons.svg" />
-          <Tap name="Diseño Gráfico" icon="/icons/color-swatch-icon.svg" />
-          <Tap name="Branding" icon="/icons/shapes-icon.svg" />
+          {categories &&
+            categories.map(({ name, id, icon }) => (
+              <Tap
+                key={id}
+                onClickTap={handleTabClick}
+                name={name}
+                icon={icon ?? ""}
+              />
+            ))}
         </div>
         <div className="w-full h-[2px] bg-[#D9DBE9] flex justify-center">
-          <div className="w-[927px]">
-            <div className="bg-primary-cta h-full w-[309.122px]" />
+          <div className="w-[927px] relative">
+            {tapPositionGenerator && (
+              <div
+                ref={ref}
+                style={{ left: tapPositionGenerator[activeTab] }}
+                className="absolute bg-primary-cta h-full w-[309.122px] transition-all duration-300 ease-in-out"
+              />
+            )}
           </div>
         </div>
       </div>
-      <div className="flex justify-between gap-y-[34px] flex-wrap max-w-[1170px]">
-        <Card image="/images/Img.png" title="Hutrit" category="UX/UI Design" />
-        <Card image="/images/Img.png" title="Hutrit" category="UX/UI Design" />
-        <Card image="/images/Img.png" title="Hutrit" category="UX/UI Design" />
-        <Card image="/images/Img.png" title="Hutrit" category="UX/UI Design" />
-        <Card image="/images/Img.png" title="Hutrit" category="UX/UI Design" />
-        <Card image="/images/Img.png" title="Hutrit" category="UX/UI Design" />
-      </div>
+      <ListOfProjects />
     </div>
   );
 }
