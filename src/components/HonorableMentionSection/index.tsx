@@ -42,6 +42,7 @@ export default function HonorableMentionSection() {
 
         <div className="flex gap-20 items-center relative  px-[22px] w-full h-full z-40">
           <Card
+            isOpenProject={false}
             icon="/images/aslan-logo.png"
             image="/images/Img.jpg"
             title="Aslan app"

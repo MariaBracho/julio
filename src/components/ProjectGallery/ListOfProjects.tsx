@@ -25,17 +25,20 @@ export default function ListOfProjects({
     <div className="flex justify-between gap-y-[34px] flex-wrap max-w-[1170px]">
       {projects &&
         filteredProjects &&
-        filteredProjects.map(({ id, title, categories, img, logo }) => {
-          return (
-            <Card
-              key={id}
-              image={img}
-              title={title ?? ""}
-              icon={logo}
-              category={categories?.name ?? ""}
-            />
-          );
-        })}
+        filteredProjects.map(
+          ({ id, title, categories, img, logo, url_link }) => {
+            return (
+              <Card
+                key={id}
+                url={url_link}
+                image={img}
+                title={title ?? ""}
+                icon={logo}
+                category={categories?.name ?? ""}
+              />
+            );
+          }
+        )}
     </div>
   );
 }

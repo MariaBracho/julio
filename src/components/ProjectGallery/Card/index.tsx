@@ -7,31 +7,50 @@ import { useRef, useState } from "react";
 import { useHover } from "usehooks-ts";
 
 import cls from "classnames";
-import ProjectModal from "../ProjectModal.tsx";
+import ProjectModal from "@/components/ProjectGallery/ProjectModal.tsx";
 
 interface CardProps {
   image: string;
   title: string;
   category: string;
-  icon?: string;
-  url: string;
+  icon: string;
+  url?: string;
+  isOpenProject?: boolean;
 }
 
-export default function Card({ image, title, category, icon, url }: CardProps) {
+export default function Card({
+  image,
+  title,
+  category,
+  icon,
+  url,
+  isOpenProject = true,
+}: CardProps) {
   const [showModal, setShowModal] = useState(false);
   const ref = useRef(null);
 
   const isHovering = useHover(ref);
 
+  const isShowHover = isOpenProject ? isHovering : false;
+
   return (
     <>
-      {showModal && <ProjectModal onClose={() => setShowModal(false)} />}
+      {showModal && (
+        <ProjectModal
+          url={url ?? ""}
+          title={title}
+          category={category}
+          icon={icon}
+          onClose={() => setShowModal(false)}
+        />
+      )}
       <div
-        onClick={() => setShowModal(true)}
+        onClick={() => isOpenProject && setShowModal(true)}
         ref={ref}
+        data-ishover={isShowHover}
         className={cls(
           "w-[370px] min-h-[320px] rounded-[36px] border border-primary-border bg-primary-content overflow-hidden",
-          "cursor-pointer hover:bg-[#CBC7FF]",
+          "data-[ishover=true]:cursor-pointer data-[ishover=true]:bg-[#CBC7FF]",
           "transition-all duration-100 linear"
         )}
       >
@@ -44,7 +63,7 @@ export default function Card({ image, title, category, icon, url }: CardProps) {
               className="object-cover rounded-[32px]"
             />
             <div
-              data-ishover={isHovering}
+              data-ishover={isShowHover}
               className={cls(
                 "bg-black/75 h-[251px] w-[362px] rounded-[32px]",
                 "hidden absolute data-[ishover=true]:grid",
@@ -75,7 +94,7 @@ export default function Card({ image, title, category, icon, url }: CardProps) {
           </div>
           <div>
             <p
-              data-ishover={isHovering}
+              data-ishover={isShowHover}
               className={cls(
                 "font-bold text-base",
                 "text-primary-text data-[ishover=true]:text-primary-cta"
