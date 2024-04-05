@@ -7,6 +7,9 @@ import { useQuery } from "@supabase-cache-helpers/postgrest-react-query";
 import { getProjectsQuery } from "@/queries/getProjectsquery";
 
 import Card from "./Card";
+import cls from "classnames";
+
+import style from "./projects.module.css";
 
 export default function ListOfProjects({
   categoryName,
@@ -22,7 +25,7 @@ export default function ListOfProjects({
   );
 
   return (
-    <div className="flex justify-between gap-y-[34px] flex-wrap max-w-[1170px]">
+    <div className={cls("w-full gap-x-3 gap-y-9", style.listOfProjects)}>
       {projects &&
         filteredProjects &&
         filteredProjects.map(

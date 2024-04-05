@@ -1,0 +1,6 @@
+.listOfProjects{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+    grid-template-rows: 320px;
+}

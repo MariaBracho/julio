@@ -8,9 +8,16 @@ import { SKILLS } from "@/constants/skills";
 
 import Badge from "./Badge";
 import WorkExperienceCard from "./WorkExperienceCard";
+import { getWorkExperiencesQuery } from "@/queries/getWorkExperiencesQuery";
+import useSupabaseBrowser from "@/utils/supabase-browser";
+import { useQuery } from "@supabase-cache-helpers/postgrest-react-query";
 
 export default function AboutMeSection() {
   const observe = useObserverSection();
+
+  const client = useSupabaseBrowser();
+
+  const { data: workExperiences } = useQuery(getWorkExperiencesQuery(client));
 
   return (
     <section
@@ -24,7 +31,7 @@ export default function AboutMeSection() {
           Conoce, mi trayectoria mis habilidades y mi creencias profesionales
         </p>
       </div>
-      <div className="grid grid-cols-2 w-full min-h-[876px] rounded-2xl overflow-hidden">
+      <div className="grid grid-cols-2 w-full h-full  min-h-[876px] rounded-2xl overflow-hidden">
         <section className="bg-primary-content border rounded-l-2xl border-primary-border h-full w-full px-6 py-8">
           <Image
             src="/images/profile-julio.webp"
@@ -70,8 +77,8 @@ export default function AboutMeSection() {
             </div>
           </div>
         </section>
-        <section className="bg-[#E6E4FF] w-full h-full px-8 py-10 flex flex-col items-center">
-          <div className="flex gap-2 items-center mb-10">
+        <section className="bg-[#E6E4FF] w-full h-full px-8 py-10 flex flex-col items-center max-h-[876px] overflow-y-auto">
+          <div className="flex w-full gap-2 items-center mb-10">
             <div className="rounded-[14px] bg-primary-cta/10 w-12 h-12 grid place-content-center">
               <Image
                 src="/icons/shapes-icon.svg"
@@ -82,12 +89,31 @@ export default function AboutMeSection() {
             </div>
             <p className="text-xl font-semibold">Experiencia laboral</p>
           </div>
-          <div className="flex flex-col gap-y-4">
-            <WorkExperienceCard />
-            <WorkExperienceCard />
-            <WorkExperienceCard />
-            <WorkExperienceCard />
-            <WorkExperienceCard />
+          <div className="flex  h-full w-full flex-col gap-y-4 ">
+            {workExperiences &&
+              workExperiences?.map(
+                ({
+                  id,
+                  rol,
+                  description,
+                  company,
+                  start_date,
+                  end_date,
+                  isJobFinish,
+                }) => {
+                  return (
+                    <WorkExperienceCard
+                      start_date={start_date}
+                      end_date={end_date}
+                      isJobFinish={isJobFinish}
+                      company={company}
+                      description={description}
+                      key={id}
+                      rol={rol}
+                    />
+                  );
+                }
+              )}
           </div>
         </section>
       </div>

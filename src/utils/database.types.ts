@@ -86,6 +86,39 @@ export type Database = {
           },
         ]
       }
+      workExperiences: {
+        Row: {
+          company: string
+          created_at: string
+          description: string
+          end_date: string | null
+          id: number
+          isJobFinish: boolean | null
+          rol: string
+          start_date: string
+        }
+        Insert: {
+          company: string
+          created_at?: string
+          description: string
+          end_date?: string | null
+          id?: number
+          isJobFinish?: boolean | null
+          rol: string
+          start_date: string
+        }
+        Update: {
+          company?: string
+          created_at?: string
+          description?: string
+          end_date?: string | null
+          id?: number
+          isJobFinish?: boolean | null
+          rol?: string
+          start_date?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

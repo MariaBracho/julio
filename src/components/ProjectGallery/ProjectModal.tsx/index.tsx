@@ -65,13 +65,13 @@ export default function ProjectModal({
           <div className="w-4 h-4 rounded-full bg-green-600" />
           <p>Proximas actualizaciones</p>
         </div>
-        <div className="flex items-center gap-3 justify-center">
+        <div className="flex items-center gap-3 justify-center rounded-full">
           <Image
             src={icon ?? ""}
             alt="logo"
             width={32}
             height={32}
-            className="w-8 h-8"
+            className="w-8 h-8 rounded-full object-cover"
           />
           <div className="flex gap-1 items-center ">
             <div>

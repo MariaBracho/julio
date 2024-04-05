@@ -49,7 +49,7 @@ export default function Card({
         ref={ref}
         data-ishover={isShowHover}
         className={cls(
-          "w-[370px] min-h-[320px] rounded-[36px] border border-primary-border bg-primary-content overflow-hidden",
+          "w-[370px] h-[320px] rounded-[36px] border border-primary-border bg-primary-content overflow-hidden",
           "data-[ishover=true]:cursor-pointer data-[ishover=true]:bg-[#CBC7FF]",
           "transition-all duration-100 linear"
         )}
