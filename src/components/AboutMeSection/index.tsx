@@ -4,13 +4,12 @@ import Image from "next/image";
 
 import { useObserverSection } from "@/hooks/useObserverSection";
 
-import { SKILLS } from "@/constants/skills";
-
 import Badge from "./Badge";
 import WorkExperienceCard from "./WorkExperienceCard";
 import { getWorkExperiencesQuery } from "@/queries/getWorkExperiencesQuery";
 import useSupabaseBrowser from "@/utils/supabase-browser";
 import { useQuery } from "@supabase-cache-helpers/postgrest-react-query";
+import { getSkillQuery } from "@/queries/getSkillsQuery";
 
 export default function AboutMeSection() {
   const observe = useObserverSection();
@@ -18,6 +17,7 @@ export default function AboutMeSection() {
   const client = useSupabaseBrowser();
 
   const { data: workExperiences } = useQuery(getWorkExperiencesQuery(client));
+  const { data: skills } = useQuery(getSkillQuery(client));
 
   return (
     <section
@@ -71,9 +71,10 @@ export default function AboutMeSection() {
           <div className="mt-4">
             <p className="text-xl font-semibold my-3">Skills</p>
             <div className="flex flex-wrap gap-2 ">
-              {SKILLS.map((skill) => {
-                return <Badge key={skill}>{skill}</Badge>;
-              })}
+              {skills &&
+                skills.map(({ name, id }) => {
+                  return <Badge key={id}>{name}</Badge>;
+                })}
             </div>
           </div>
         </section>

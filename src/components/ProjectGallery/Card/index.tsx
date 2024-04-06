@@ -58,9 +58,10 @@ export default function Card({
           <div className="relative h-[251px] w-[362px] rounded-[32px]">
             <Image
               src={image}
-              fill
+              width={362}
+              height={251}
               alt="project"
-              className="object-cover rounded-[32px]"
+              className="h-[251px] w-[362px] object-cover rounded-[32px] absolute"
             />
             <div
               data-ishover={isShowHover}
@@ -87,7 +88,8 @@ export default function Card({
           <div className="h-8 w-8 bg-[#D9D9D9] rounded-full flex justify-center items-center relative">
             <Image
               src={icon ?? ""}
-              fill
+              width={32}
+              height={32}
               alt="icon"
               className="object-cover h-8 w-8 rounded-full"
             />

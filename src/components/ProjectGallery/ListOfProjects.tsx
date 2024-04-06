@@ -25,7 +25,12 @@ export default function ListOfProjects({
   );
 
   return (
-    <div className={cls("w-full gap-x-3 gap-y-9", style.listOfProjects)}>
+    <div
+      className={cls(
+        "w-full justify-items-center gap-x-3 gap-y-9",
+        style.listOfProjects
+      )}
+    >
       {projects &&
         filteredProjects &&
         filteredProjects.map(

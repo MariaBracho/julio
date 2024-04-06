@@ -58,6 +58,7 @@ export default function Hero() {
           src="/images/background-hero.png"
           alt="background hero"
           className="object-cover w-full h-full"
+          sizes="100vw"
           fill
         />
       </div>
