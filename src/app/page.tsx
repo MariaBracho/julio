@@ -7,37 +7,15 @@ import HonorableMentionSection from "@/components/HonorableMentionSection";
 import Navbar from "@/components/Navbar";
 import ProjectGallerySection from "@/components/ProjectGallery";
 import RecommendationsSection from "@/components/RecommendationsSection";
-import { getCategoriesQuery } from "@/queries/getCategoriesQuery";
-import { getCertificatesQuery } from "@/queries/getCertificatesQuery";
-import { getProjectsQuery } from "@/queries/getProjectsquery";
-import { getSkillQuery } from "@/queries/getSkillsQuery";
-import { getWorkExperiencesQuery } from "@/queries/getWorkExperiencesQuery";
-import useSupabaseServer from "@/utils/supabase-server";
-import { prefetchQuery } from "@supabase-cache-helpers/postgrest-react-query";
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
-import { cookies } from "next/headers";
+import PrefetchQueryProvider from "@/providers/PrefetchQueryProvider";
 
 export default async function Page() {
-  const queryClient = new QueryClient();
-  const cookieStore = cookies();
-  const supabase = useSupabaseServer(cookieStore);
-
-  await prefetchQuery(queryClient, getCertificatesQuery(supabase));
-  await prefetchQuery(queryClient, getProjectsQuery(supabase));
-  await prefetchQuery(queryClient, getCategoriesQuery(supabase));
-  await prefetchQuery(queryClient, getWorkExperiencesQuery(supabase));
-  await prefetchQuery(queryClient, getSkillQuery(supabase));
-
   return (
     <div className="relative flex min-h-screen flex-col items-center bg-white px-6 py-3">
       <Navbar />
       <Hero />
       <div className="w-full max-w-[1170px]">
-        <HydrationBoundary state={dehydrate(queryClient)}>
+        <PrefetchQueryProvider>
           <BrandSection />
           <ProjectGallerySection />
           <HonorableMentionSection />
@@ -45,7 +23,7 @@ export default async function Page() {
           <EducationSection />
           <CertificatesSection />
           <RecommendationsSection />
-        </HydrationBoundary>
+        </PrefetchQueryProvider>
       </div>
     </div>
   );

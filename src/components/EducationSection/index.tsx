@@ -1,4 +1,4 @@
-import EducationCard from "./EducationCard";
+import ListOfEducation from "./ListOfEducation";
 
 export default function EducationSection() {
   return (
@@ -9,11 +9,7 @@ export default function EducationSection() {
           Conoce, mi trayectoria mis habilidades y mi creencias profesionales
         </p>
       </div>
-      <div className="gap-2 flex flex-wrap justify-between">
-        <EducationCard />
-        <EducationCard />
-        <EducationCard />
-      </div>
+      <ListOfEducation />
     </section>
   );
 }
