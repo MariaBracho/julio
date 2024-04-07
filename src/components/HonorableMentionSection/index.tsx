@@ -44,7 +44,7 @@ export default function HonorableMentionSection() {
           <Card
             isOpenProject={false}
             icon="/images/aslan-logo.png"
-            image="/images/Img.jpg"
+            image="/images/aslan-project.jpg"
             title="Aslan app"
             category="UX/UI Design"
           />
@@ -63,9 +63,9 @@ export default function HonorableMentionSection() {
               usuario.
             </p>
             <div className="mt-5 flex gap-3">
-              <p className="text-primary-cta font-bold text-base">
+              <a href="#" className="text-primary-cta font-bold text-base">
                 Ver proyecto Aslan App
-              </p>
+              </a>
               <Image
                 src="/icons/arrow-right.svg"
                 alt="arrow"

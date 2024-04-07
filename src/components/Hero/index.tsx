@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { useObserverSection } from "@/hooks/useObserverSection";
 import HonorableMentionIcon from "@/components/HonorableMentionIcon";
+import Button from "@/components/Button";
 
 export default function Hero() {
   const observe = useObserverSection();
@@ -22,9 +23,7 @@ export default function Hero() {
           <p className="sub-title">
             “La mejor manera de predecir el futuro es creándolo”
           </p>
-          <button className="bg-primary-cta rounded-full h-12 w-[208px] text-white text-sm">
-            Agendar reunión
-          </button>
+          <Button>Agendar reunión</Button>
         </div>
         <div className="mt-14 mb-1">
           <HonorableMentionIcon />
