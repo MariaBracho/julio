@@ -33,10 +33,13 @@ export default function Card({
 
   const isShowHover = isOpenProject ? isHovering : false;
 
+  console.log({ showModal });
+
   return (
     <>
       {showModal && (
         <ProjectModal
+          open={showModal}
           url={url ?? ""}
           title={title}
           category={category}
