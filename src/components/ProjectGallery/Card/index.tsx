@@ -39,7 +39,6 @@ export default function Card({
     <>
       {showModal && (
         <ProjectModal
-          open={showModal}
           url={url ?? ""}
           title={title}
           category={category}
