@@ -2,12 +2,19 @@
 
 import Image from "next/image";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useHover } from "usehooks-ts";
 
 import cls from "classnames";
+
 import ProjectModal from "@/components/ProjectGallery/ProjectModal.tsx";
+
+import { ExtendedRecordMap } from "notion-types";
+
+import getUUIDFromNotionURL from "@/utils/getUUIDFromNotionURL";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 interface CardProps {
   image: string;
@@ -16,6 +23,8 @@ interface CardProps {
   icon: string;
   url?: string;
   isOpenProject?: boolean;
+  recordMap: ExtendedRecordMap;
+  rootPageId: string;
 }
 
 export default function Card({
@@ -25,29 +34,63 @@ export default function Card({
   icon,
   url,
   isOpenProject = true,
+  recordMap,
+  rootPageId,
 }: CardProps) {
-  const [showModal, setShowModal] = useState(false);
   const ref = useRef(null);
 
   const isHovering = useHover(ref);
 
   const isShowHover = isOpenProject ? isHovering : false;
 
-  console.log({ showModal });
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  const hasProject = searchParams.has("project");
+
+  const [showModal, setShowModal] = useState(false);
+
+  const { replace } = useRouter();
+
+  const handleOpenModal = () => {
+    const params = new URLSearchParams(searchParams);
+    if (isOpenProject && url) {
+      params.set("project", getUUIDFromNotionURL(url));
+      replace(`${pathname}?${params.toString()}`);
+      setShowModal(true);
+    }
+  };
+
+  const onCloseModal = () => {
+    const params = new URLSearchParams(searchParams);
+    params.delete("project");
+    replace(`${pathname}?${params.toString()}`);
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    if (!showModal) {
+      const params = new URLSearchParams(searchParams);
+      params.delete("project");
+      replace(`${pathname}?${params.toString()}`);
+    }
+  }, [showModal]);
 
   return (
     <>
       {showModal && (
         <ProjectModal
-          url={url ?? ""}
+          hasProject={hasProject}
+          rootPageId={rootPageId}
+          recordMap={recordMap}
           title={title}
           category={category}
           icon={icon}
-          onClose={() => setShowModal(false)}
+          onClose={onCloseModal}
         />
       )}
       <div
-        onClick={() => isOpenProject && setShowModal(true)}
+        onClick={handleOpenModal}
         ref={ref}
         data-ishover={isShowHover}
         className={cls(

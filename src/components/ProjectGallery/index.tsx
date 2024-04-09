@@ -11,8 +11,15 @@ import { getCategoriesQuery } from "@/queries/getCategoriesQuery";
 
 import Tap from "./Tap";
 import ListOfProjects from "./ListOfProjects";
+import { ExtendedRecordMap } from "notion-types";
 
-export default function ProjectGallerySection() {
+export default function ProjectGallerySection({
+  recordMap,
+  rootPageId,
+}: {
+  recordMap: ExtendedRecordMap;
+  rootPageId: string;
+}) {
   const ref = useRef(null);
   const observe = useObserverSection();
 
@@ -70,7 +77,11 @@ export default function ProjectGallerySection() {
           </div>
         </div>
       </div>
-      <ListOfProjects categoryName={activeTab} />
+      <ListOfProjects
+        recordMap={recordMap}
+        rootPageId={rootPageId}
+        categoryName={activeTab}
+      />
     </div>
   );
 }

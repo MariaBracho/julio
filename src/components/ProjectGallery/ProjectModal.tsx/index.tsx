@@ -3,43 +3,62 @@
 import Image from "next/image";
 import { createPortal } from "react-dom";
 
-import { NotionRenderer } from "react-notion";
-
-import { useQuery } from "@tanstack/react-query";
 import { useScrollLock } from "usehooks-ts";
 
-import fetchNotionPage from "@/services/fetchNotionPage";
 import { useEffect } from "react";
-import getUUIDFromNotionURL from "@/utils/getUUIDFromNotionURL";
 
-import "react-notion/src/styles.css";
-import "prismjs/themes/prism-tomorrow.css";
 import cls from "classnames";
+
+import Link from "next/link";
+import dynamic from "next/dynamic";
+
+import { NotionRenderer } from "react-notion-x";
+
+import { ExtendedRecordMap } from "notion-types";
+
+import "react-notion-x/src/styles.css";
+import "prismjs/themes/prism-tomorrow.css";
+import "katex/dist/katex.min.css";
+
+import "./project.css";
+
+const Code = dynamic(() =>
+  import("react-notion-x/build/third-party/code").then((m) => m.Code)
+);
+const Collection = dynamic(() =>
+  import("react-notion-x/build/third-party/collection").then(
+    (m) => m.Collection
+  )
+);
+const Equation = dynamic(() =>
+  import("react-notion-x/build/third-party/equation").then((m) => m.Equation)
+);
+
+const Modal = dynamic(
+  () => import("react-notion-x/build/third-party/modal").then((m) => m.Modal),
+  {
+    ssr: false,
+  }
+);
 
 interface ModalProps {
   onClose: () => void;
   title: string;
   category: string;
   icon: string;
-  url: string;
+  recordMap: ExtendedRecordMap;
+  rootPageId: string;
+  hasProject: boolean;
 }
-
 export default function ProjectModal({
   onClose,
-  url,
   title,
   icon,
   category,
+  recordMap,
+  hasProject,
+  rootPageId,
 }: ModalProps) {
-  const {
-    data: blockMap,
-    isLoading,
-    isSuccess,
-  } = useQuery({
-    queryKey: ["notionData", url],
-    queryFn: async () => await fetchNotionPage(getUUIDFromNotionURL(url)),
-  });
-
   useScrollLock();
 
   useEffect(() => {
@@ -65,7 +84,7 @@ export default function ProjectModal({
           "grid grid-cols-3"
         )}
       >
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-x-2 items-center">
           <div className="w-4 h-4 rounded-full bg-green-600" />
           <p>Proximas actualizaciones</p>
         </div>
@@ -101,17 +120,28 @@ export default function ProjectModal({
           />
         </div>
       </div>
-      <div className="w-full bg-white rounded-t-[32px] p-y h-full overflow-hidden">
-        <div className="w-full h-full overflow-y-auto scrollbar-hide">
-          <div className="max-w-3xl mx-auto my-0 w-full rounded-t-[32px} h-full">
-            {isLoading ? (
-              <p>Loading...</p>
+      <div className="w-full bg-white py-0 my-0 rounded-t-[32px] h-full overflow-hidden relative">
+        <div className="w-full h-full rounded-t-[32px] overflow-y-auto scrollbar-hide">
+          <div className="w-full my-0  rounded-t-[32px} h-full">
+            {recordMap && hasProject ? (
+              <NotionRenderer
+                fullPage
+                darkMode={false}
+                rootPageId={rootPageId}
+                disableHeader
+                recordMap={recordMap}
+                previewImages
+                showTableOfContents
+                components={{
+                  nextLink: Link,
+                  Code,
+                  Collection,
+                  Equation,
+                  Modal,
+                }}
+              />
             ) : (
-              <div className="w-full px-4">
-                {isSuccess && (
-                  <NotionRenderer fullPage hideHeader blockMap={blockMap} />
-                )}
-              </div>
+              <p>...isLoading</p>
             )}
           </div>
         </div>
