@@ -46,9 +46,9 @@ interface ModalProps {
   title: string;
   category: string;
   icon: string;
-  recordMap: ExtendedRecordMap;
-  rootPageId: string;
-  hasProject: boolean;
+  recordMap: ExtendedRecordMap | undefined;
+  rootPageId?: string;
+  hasProject?: boolean;
 }
 export default function ProjectModal({
   onClose,

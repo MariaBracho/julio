@@ -23,8 +23,8 @@ interface CardProps {
   icon: string;
   url?: string;
   isOpenProject?: boolean;
-  recordMap: ExtendedRecordMap;
-  rootPageId: string;
+  recordMap?: ExtendedRecordMap;
+  rootPageId?: string;
 }
 
 export default function Card({
@@ -74,7 +74,7 @@ export default function Card({
       params.delete("project");
       replace(`${pathname}?${params.toString()}`);
     }
-  }, [showModal]);
+  }, [showModal, pathname, replace, searchParams]);
 
   return (
     <>
