@@ -10,17 +10,12 @@ import Card from "./Card";
 import cls from "classnames";
 
 import style from "./projects.module.css";
-import { ExtendedRecordMap } from "notion-types";
 
-export default function ListOfProjects({
-  categoryName,
-  recordMap,
-  rootPageId,
-}: {
+interface Props {
   categoryName: string;
-  recordMap: ExtendedRecordMap;
-  rootPageId: string;
-}) {
+}
+
+export default function ListOfProjects({ categoryName }: Props) {
   const supabase = useSupabaseBrowser();
 
   const { data: projects } = useQuery(getProjectsQuery(supabase));
@@ -42,9 +37,8 @@ export default function ListOfProjects({
           ({ id, title, categories, img, logo, url_link }) => {
             return (
               <Card
-                recordMap={recordMap}
-                rootPageId={rootPageId}
                 key={id}
+                id={id}
                 url={url_link}
                 image={img}
                 title={title ?? ""}

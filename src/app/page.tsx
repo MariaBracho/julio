@@ -1,24 +1,41 @@
-import AboutMeSection from "@/components/AboutMeSection";
 import BrandSection from "@/components/BrandSection";
-import CertificatesSection from "@/components/CertificatesSection";
-import EducationSection from "@/components/EducationSection";
-import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import HonorableMentionSection from "@/components/HonorableMentionSection";
 import Navbar from "@/components/Navbar";
-import ProjectGallerySection from "@/components/ProjectGallery";
-import RecommendationsSection from "@/components/RecommendationsSection";
+import ProjectModal from "@/components/ProjectGallery/ProjectModal.tsx";
 import PrefetchQueryProvider from "@/providers/PrefetchQueryProvider";
 import fetchNotionPage from "@/services/fetchNotionPage";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+
+const AboutMeSection = dynamic(() => import("@/components/AboutMeSection"));
+const HonorableMentionSection = dynamic(
+  () => import("@/components/HonorableMentionSection")
+);
+const EducationSection = dynamic(() => import("@/components/EducationSection"));
+const CertificatesSection = dynamic(
+  () => import("@/components/CertificatesSection")
+);
+const RecommendationsSection = dynamic(
+  () => import("@/components/RecommendationsSection")
+);
+
+const ProjectGallerySection = dynamic(
+  () => import("@/components/ProjectGallery")
+);
+
+const Footer = dynamic(() => import("@/components/Footer"));
 
 export default async function Page({
   searchParams,
 }: {
   searchParams: {
-    project: string;
+    project?: string;
+    id?: string;
   };
 }) {
-  const data = await fetchNotionPage(searchParams.project);
+  const queryProject = searchParams?.project ?? "";
+  const queryId = searchParams?.id ?? "";
+  const data = await fetchNotionPage(queryProject);
 
   return (
     <div className="w-full min-h-screen">
@@ -28,12 +45,9 @@ export default async function Page({
         <div className="w-full max-w-[1170px]">
           <PrefetchQueryProvider>
             <BrandSection />
-            <ProjectGallerySection
-              recordMap={data}
-              rootPageId={
-                searchParams.project ?? "85be5b5026d64a1dbd2f40f54839568c"
-              }
-            />
+            <Suspense fallback={null}>
+              <ProjectGallerySection />
+            </Suspense>
             <HonorableMentionSection />
             <AboutMeSection />
             <EducationSection />
@@ -43,6 +57,9 @@ export default async function Page({
         </div>
       </div>
       <Footer />
+      <Suspense fallback={null}>
+        <ProjectModal id={queryId} recordMap={data} rootPageId={queryProject} />
+      </Suspense>
     </div>
   );
 }

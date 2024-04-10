@@ -1,13 +1,18 @@
-// import axios from "axios";
 import { NotionAPI } from "notion-client";
 
-const fetchNotionPage = async (
-  uid: string = "85be5b5026d64a1dbd2f40f54839568c"
-) => {
+const fetchNotionPage = async (uid?: string) => {
+  let data;
   const notion = new NotionAPI();
-  //   const URL_API = "https://notion-api.splitbee.io/v1/page";
 
-  return await notion.getPage(uid);
+  if (!uid) return;
+
+  try {
+    data = await notion.getPage(uid);
+  } catch (error) {
+    console.log(error);
+  }
+
+  return data;
 };
 
 export default fetchNotionPage;

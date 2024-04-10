@@ -2,40 +2,35 @@
 
 import Image from "next/image";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 import { useHover } from "usehooks-ts";
 
 import cls from "classnames";
 
-import ProjectModal from "@/components/ProjectGallery/ProjectModal.tsx";
-
-import { ExtendedRecordMap } from "notion-types";
-
 import getUUIDFromNotionURL from "@/utils/getUUIDFromNotionURL";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useActiveProjectModal } from "@/stores/projectModalActive";
 
 interface CardProps {
-  image: string;
   title: string;
   category: string;
   icon: string;
+  image: string;
   url?: string;
   isOpenProject?: boolean;
-  recordMap?: ExtendedRecordMap;
-  rootPageId?: string;
+  id?: number;
 }
 
 export default function Card({
+  id,
   image,
   title,
   category,
   icon,
   url,
   isOpenProject = true,
-  recordMap,
-  rootPageId,
 }: CardProps) {
   const ref = useRef(null);
 
@@ -46,49 +41,31 @@ export default function Card({
   const searchParams = useSearchParams();
   const pathname = usePathname();
 
-  const hasProject = searchParams.has("project");
+  const { push } = useRouter();
 
-  const [showModal, setShowModal] = useState(false);
-
-  const { replace } = useRouter();
+  const { setData, setActiveModal, openModal } = useActiveProjectModal();
 
   const handleOpenModal = () => {
-    const params = new URLSearchParams(searchParams);
     if (isOpenProject && url) {
-      params.set("project", getUUIDFromNotionURL(url));
-      replace(`${pathname}?${params.toString()}`);
-      setShowModal(true);
-    }
-  };
-
-  const onCloseModal = () => {
-    const params = new URLSearchParams(searchParams);
-    params.delete("project");
-    replace(`${pathname}?${params.toString()}`);
-    setShowModal(false);
-  };
-
-  useEffect(() => {
-    if (!showModal) {
+      setActiveModal(true);
       const params = new URLSearchParams(searchParams);
-      params.delete("project");
-      replace(`${pathname}?${params.toString()}`);
+      params.set("project", getUUIDFromNotionURL(url));
+      id && params.set("id", id.toString());
+      push(`${pathname}?${params.toString()}`);
+
+      setData({
+        image,
+        title,
+        category,
+        icon,
+        url,
+        isOpenProject,
+      });
     }
-  }, [showModal, pathname, replace, searchParams]);
+  };
 
   return (
     <>
-      {showModal && (
-        <ProjectModal
-          hasProject={hasProject}
-          rootPageId={rootPageId}
-          recordMap={recordMap}
-          title={title}
-          category={category}
-          icon={icon}
-          onClose={onCloseModal}
-        />
-      )}
       <div
         onClick={handleOpenModal}
         ref={ref}
@@ -117,14 +94,20 @@ export default function Card({
               )}
             >
               <div className="flex text-white gap-2">
-                <Image
-                  src="/icons/visibility-icon.svg"
-                  alt="visibility icon"
-                  width={24}
-                  height={24}
-                  className="h-6 w-6"
-                />
-                <p>Ver Proyecto</p>
+                {openModal ? (
+                  <p>...loading</p>
+                ) : (
+                  <>
+                    <Image
+                      src="/icons/visibility-icon.svg"
+                      alt="visibility icon"
+                      width={24}
+                      height={24}
+                      className="h-6 w-6"
+                    />
+                    <p>Ver Proyecto</p>
+                  </>
+                )}
               </div>
             </div>
           </div>
