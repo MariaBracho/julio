@@ -6,6 +6,7 @@ import HonorableMentionIcon from "@/components/HonorableMentionIcon";
 import Card from "@/components/ProjectGallery/Card";
 
 import { useObserverSection } from "@/hooks/useObserverSection";
+import Link from "next/link";
 
 export default function HonorableMentionSection() {
   const observe = useObserverSection();
@@ -63,9 +64,12 @@ export default function HonorableMentionSection() {
               usuario.
             </p>
             <div className="mt-5 flex gap-3">
-              <a href="#" className="text-primary-cta font-bold text-base">
+              <Link
+                href="/?project=5eee65cf5fd0472fbdc4265ff880b7c0&id=32"
+                className="text-primary-cta font-bold text-base"
+              >
                 Ver proyecto Aslan App
-              </a>
+              </Link>
               <Image
                 src="/icons/arrow-right.svg"
                 alt="arrow"
